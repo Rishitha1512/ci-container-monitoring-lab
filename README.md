@@ -101,3 +101,24 @@ commit and redeploy, or rebuild from a previous tag:
 git revert <commit>          # revert a bad release
 docker compose up -d --build # redeploy the reverted version
 ```
+## Cloud Mapping
+
+The local lab demonstrates the same basic flow that can be implemented with managed cloud services.
+
+| Local lab component             | Cloud equivalent                           | Purpose                                                    |
+| ------------------------------- | ------------------------------------------ | ---------------------------------------------------------- |
+| GitHub Actions CI               | GitHub Actions + cloud deployment pipeline | Build, test, and validate changes before deployment        |
+| Docker image                    | Google Artifact Registry                   | Store versioned container images                           |
+| Docker Compose app service      | Google Cloud Run                           | Run the containerized application without managing servers |
+| Prometheus / Grafana monitoring | Google Cloud Monitoring                    | Collect and visualize application and service metrics      |
+| Local health check              | Cloud Run health/readiness configuration   | Verify that the deployed service is available              |
+
+The local workflow is:
+
+**Commit → CI → Docker build → container deployment → metrics → dashboard**
+
+A conceptual cloud workflow would be:
+
+**Commit → CI → build container → Artifact Registry → Cloud Run → Cloud Monitoring**
+
+This lab does not require a cloud deployment or incur cloud billing. The cloud services above are provided as a mapping of the local components and workflow.
